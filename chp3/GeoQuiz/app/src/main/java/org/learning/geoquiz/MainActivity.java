@@ -2,10 +2,8 @@ package org.learning.geoquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mNextButton;
     private TextView mQuestionTextView;
 
-    private Question[] mQuestionBank = new Question[] {
+    private static final Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia,true),
             new Question(R.string.question_oceans,true),
             new Question(R.string.question_mideast, false),
@@ -42,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         }
-        mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
+        mQuestionTextView =  findViewById(R.id.question_text_view);
         updateQuestion();
 
-        mTrueButton = (Button) findViewById(R.id.true_button);
-        mFalseButton = (Button) findViewById(R.id.false_button);
-        mNextButton = (Button) findViewById(R.id.next_button);
+        mTrueButton = findViewById(R.id.true_button);
+        mFalseButton = findViewById(R.id.false_button);
+        mNextButton = findViewById(R.id.next_button);
 
         mTrueButton.setOnClickListener(new View.OnClickListener(){
 
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         boolean isAnswerTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
 
-        int messageResId = 0;
+        int messageResId;
         if (userPressedTrue == isAnswerTrue) {
             messageResId = R.string.correct_toast;
         } else {
