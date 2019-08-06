@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/arrow_left"
         android:drawablePadding="4dp"
-        android:text="@string/prev_buffon" />
+        android:text="@string/prev_button" />
 
     <Button
         android:id="@+id/next_button"
