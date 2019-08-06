@@ -101,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
         boolean isAnswerTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
         mAnsweredSet[mCurrentIndex] = ANSWERED;
 
+        mTrueButton.setEnabled(false);
+        mFalseButton.setEnabled(false);
+
         int messageResId = 0;
         if (userPressedTrue == isAnswerTrue) {
             messageResId = R.string.correct_toast;
