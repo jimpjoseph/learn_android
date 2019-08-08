@@ -16,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "GeoQuiz";
     private static final String KEY_INDEX = "index";
-    private static final String KEY_CHEAT = "cheat";
-    private static final String KEY_CHEAT_ARR = "cheat_array";
     private static final int REQUEST_CODE_CHEAT = 0;
 
     private Button mTrueButton;
@@ -37,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     private int mCurrentIndex = 0;
     private boolean mIsCheater = false;
-    private boolean[] mIsCheaterArray = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-            mIsCheater = savedInstanceState.getBoolean(KEY_CHEAT, false);
-            mIsCheaterArray = savedInstanceState.getBooleanArray(KEY_CHEAT_ARR);
         }
-        if (mIsCheaterArray == null) {
-            mIsCheaterArray = new boolean[mQuestionBank.length];
-        }
-
         mQuestionTextView =  findViewById(R.id.question_text_view);
         updateQuestion();
 
@@ -83,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                mIsCheater = mIsCheaterArray[mCurrentIndex];
+                mIsCheater = false;
                 updateQuestion();
             }
         });
@@ -156,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
-        savedInstanceState.putBoolean(KEY_CHEAT, mIsCheater);
-        savedInstanceState.putBooleanArray(KEY_CHEAT_ARR, mIsCheaterArray);
     }
 
     @Override
@@ -171,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             mIsCheater = CheatActivity.wasAnswerShown(data);
-            mIsCheaterArray[mCurrentIndex] = mIsCheater;
         }
     }
 
