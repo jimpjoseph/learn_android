@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "GeoQuiz";
     private static final String KEY_INDEX = "index";
+    private static final String KEY_TRIES = "tries";
     private static final int REQUEST_CODE_CHEAT = 0;
 
     private Button mTrueButton;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            mCountRemaining = savedInstanceState.getInt(KEY_TRIES, 3);
         }
         mQuestionTextView =  findViewById(R.id.question_text_view);
         updateQuestion();
@@ -153,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putInt(KEY_TRIES, mCountRemaining);
     }
 
     @Override
@@ -166,6 +169,15 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             mIsCheater = CheatActivity.wasAnswerShown(data);
+            if (mIsCheater) {
+                mCountRemaining--;
+                mTriesString = getResources().getString(R.string.cheats_remaining);
+                mTriesRemaining.setText(mTriesString + mCountRemaining);
+                if (mCountRemaining <= 0) {
+                    mCheatButton.setEnabled(false);
+                }
+            }
+
         }
     }
 
