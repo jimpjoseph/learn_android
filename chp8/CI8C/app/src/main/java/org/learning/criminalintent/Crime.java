@@ -9,6 +9,10 @@ public class Crime {
     private Date mDate;
     private boolean mSolved;
 
+
+    private boolean mRequiresPoilice;
+
+
     public Crime() {
         mId = UUID.randomUUID();
         mDate = new Date();
@@ -41,4 +45,13 @@ public class Crime {
     public void setSolved(boolean solved) {
         mSolved = solved;
     }
+
+    public boolean isRequiresPoilice() {
+        return mRequiresPoilice;
+    }
+
+    public void setRequiresPoilice(boolean requiresPoilice) {
+        mRequiresPoilice = requiresPoilice;
+    }
+
 }

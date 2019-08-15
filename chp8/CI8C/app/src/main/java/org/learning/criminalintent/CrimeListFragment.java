@@ -1,5 +1,6 @@
 package org.learning.criminalintent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,12 +43,17 @@ public class CrimeListFragment extends Fragment {
 
         private Crime mCrime;
 
-        public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
+        public CrimeHolder(LayoutInflater inflater, ViewGroup parent, int viewType) {
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
 
             mTitleTextView = itemView.findViewById(R.id.crime_title);
             mDateTextView = itemView.findViewById(R.id.crime_date);
             itemView.setOnClickListener(this);
+            if (viewType == R.id.requires_police) {
+                itemView.setBackgroundColor(Color.RED);
+            } else {
+                itemView.setBackgroundColor(Color.BLUE);
+            }
         }
 
         public void bind(Crime crime) {
@@ -63,6 +69,8 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
+
+
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
 
         private List<Crime> mCrimes;
@@ -75,13 +83,24 @@ public class CrimeListFragment extends Fragment {
         @Override
         public CrimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            return new CrimeHolder(layoutInflater, parent);
+            return new CrimeHolder(layoutInflater, parent, viewType);
         }
+
 
         @Override
         public void onBindViewHolder(@NonNull CrimeHolder holder, int postion) {
             Crime crime = mCrimes.get(postion);
             holder.bind(crime);
+        }
+
+        @Override
+        public int getItemViewType(int position){
+            Crime crime = mCrimes.get(position);
+            if (crime.isRequiresPoilice()) {
+                return R.id.requires_police;
+            } else {
+                return R.id.does_not_require_police;
+            }
         }
 
         @Override
