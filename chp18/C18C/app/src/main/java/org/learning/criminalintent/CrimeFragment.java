@@ -34,6 +34,7 @@ import androidx.fragment.app.FragmentManager;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class CrimeFragment extends Fragment {
@@ -274,7 +275,12 @@ public class CrimeFragment extends Fragment {
     }
 
     private void updateDate() {
-        mDateButton.setText(mCrime.getDate().toString());
+       // DateFormat.getBestDateTimePattern(Locale.getDefault(),)
+        String dateFormat = "EEE, MMM dd  HH:mm";
+        String newDateFormat = DateFormat.getBestDateTimePattern(Locale.getDefault(), dateFormat);
+        String dateString = DateFormat.format(newDateFormat,mCrime.getDate()).toString();
+        //mDateButton.setText(mCrime.getDate().toString());
+        mDateButton.setText(dateString);
     }
 
     private String getCrimeReport() {
@@ -286,8 +292,8 @@ public class CrimeFragment extends Fragment {
             solvedString = getString(R.string.crime_report_unsolved);
         }
 
-        String dateaFormat = "EEE, MMM dd";
-        String dateString = DateFormat.format(dateaFormat,mCrime.getDate()).toString();
+        String dateFormat = "EEE, MMM dd";
+        String dateString = DateFormat.format(dateFormat,mCrime.getDate()).toString();
 
         String suspect = mCrime.getSuspect();
         if (suspect == null) {

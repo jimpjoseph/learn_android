@@ -1,6 +1,9 @@
 package org.learning.criminalintent;
 
+import android.text.format.DateFormat;
+
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class Crime {
@@ -58,4 +61,13 @@ public class Crime {
     public String getPhotoFilename() {
         return "IMG_" + getId().toString() +".jpg";
     }
+
+    /*
+    @Override
+    public String toString() {
+        String dateFormat = "EEE, MMM dd  HH:mm";
+        String newDateFormat = DateFormat.getBestDateTimePattern(Locale.getDefault(), dateFormat);
+        return DateFormat.format(newDateFormat,mDate).toString();
+    }
+    */
 }
