@@ -1,7 +1,6 @@
 package org.learning.criminalintent;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
-import javax.security.auth.callback.Callback;
 
 public class CrimeListFragment extends Fragment {
 
@@ -68,7 +64,7 @@ public class CrimeListFragment extends Fragment {
         }
         updateUI();
 
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mCrimeAdapter);
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback( mCrimeAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mCrimeRecyclerView);
 
@@ -213,7 +209,9 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onItemDismiss(int position) {
-
+            CrimeLab.get(getActivity()).deleteCrime(mCrimes.get(position));
+            mCrimes.remove(position);
+            notifyItemRemoved(position);
         }
     }
 
