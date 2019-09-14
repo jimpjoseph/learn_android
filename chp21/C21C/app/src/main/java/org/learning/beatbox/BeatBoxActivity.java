@@ -28,7 +28,7 @@ public class BeatBoxActivity extends SingleFragmentActivity {
         mVoiceControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int val, boolean fromuser) {
-                float rate = 1.0f * val / 200.0f;
+                float rate = 1.0f * val / 100.0f;
                 mBeatBoxFragment.updateReplayRate(rate);
             }
 
