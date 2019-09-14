@@ -42,6 +42,9 @@ public class BeatBoxFragment extends Fragment {
     }
 
 
+    public void updateReplayRate(float rate) {
+
+    }
 
     private class SoundHolder extends RecyclerView.ViewHolder {
         private ListItemSoundBinding mBinding;
