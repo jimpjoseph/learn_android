@@ -74,6 +74,9 @@ public class NerdLauncherFragment extends Fragment {
             String appName = mResolveInfo.loadLabel(pm).toString();
             mNameTextView.setText(appName);
             mNameTextView.setOnClickListener(this);
+
+            mNameTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    mResolveInfo.loadIcon(pm),null,null, null);
         }
 
         @Override
