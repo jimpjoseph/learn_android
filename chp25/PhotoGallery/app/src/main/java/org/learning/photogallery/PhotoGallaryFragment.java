@@ -1,6 +1,8 @@
 package org.learning.photogallery;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+
 public class PhotoGallaryFragment extends Fragment {
+    public static final String TAG = PhotoGallaryFragment.class.getSimpleName();
+
     private RecyclerView mPhotoRecylerView;
 
     public static PhotoGallaryFragment newInstance() {
@@ -20,6 +26,7 @@ public class PhotoGallaryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        new FetchItemsTask().execute();
     }
 
     @Override
@@ -29,6 +36,16 @@ public class PhotoGallaryFragment extends Fragment {
         mPhotoRecylerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
 
         return v;
+    }
+
+
+    private class FetchItemsTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void ... params) {
+            new FlickrFetchr().fetchItems();
+            return null;
+        }
     }
 
 }
