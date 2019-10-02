@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,10 +19,13 @@ import java.util.List;
 
 public class PhotoGallaryFragment extends Fragment {
     public static final String TAG = PhotoGallaryFragment.class.getSimpleName();
-
+    private static final int MAX_PAGE = 10; // Hard limit based on the API.
+    private static final int THRESHOLD = 5;
     private RecyclerView mPhotoRecylerView;
 
     private List<GalleryItem> mItems = new ArrayList<>();
+    private int mPageNumber = 1;
+    boolean mLoading = false;
 
     public static PhotoGallaryFragment newInstance() {
         return new PhotoGallaryFragment();
@@ -41,6 +45,7 @@ public class PhotoGallaryFragment extends Fragment {
         mPhotoRecylerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
 
         setupAdapter();
+
         return v;
     }
 
@@ -71,6 +76,27 @@ public class PhotoGallaryFragment extends Fragment {
 
         public PhotoAdaper(List<GalleryItem> items) {
             mGalleryItems = items;
+
+            mPhotoRecylerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    if ( mPhotoRecylerView.getLayoutManager() instanceof GridLayoutManager) {
+                        GridLayoutManager layoutManager = (GridLayoutManager)mPhotoRecylerView.getLayoutManager();
+                        int itemCount = layoutManager.getItemCount();
+                        int lastVisiblePos = layoutManager.findLastVisibleItemPosition();
+                        if (!mLoading && itemCount < lastVisiblePos + THRESHOLD) {
+                            mPageNumber++;
+                            if (mPageNumber <= MAX_PAGE) {
+                                new FetchItemsTask().execute();
+                            }
+                            mLoading = true;
+                        }
+                        Log.e(TAG, "Scrolled : item count " +  itemCount + " last pos " + lastVisiblePos);
+                    }
+                }
+            });
         }
 
         @Override
@@ -89,19 +115,29 @@ public class PhotoGallaryFragment extends Fragment {
         public int getItemCount() {
             return mGalleryItems.size();
         }
+
+        public void updateItemList(List<GalleryItem> items) {
+            mGalleryItems = items;
+        }
     }
 
     private class FetchItemsTask extends AsyncTask<Void, Void, List<GalleryItem>> {
 
+
         @Override
         protected List<GalleryItem> doInBackground(Void ... params) {
-            return new FlickrFetchr().fetchItems();
+            return new FlickrFetchr().fetchItems(mPageNumber);
         }
 
         @Override
         protected void onPostExecute(List<GalleryItem> items) {
-            mItems = items;
-            setupAdapter();
+            mItems.addAll(items);
+            if (mPhotoRecylerView.getAdapter() == null) {
+                setupAdapter();
+            } else {
+                mPhotoRecylerView.getAdapter().notifyDataSetChanged();
+            }
+            mLoading = false;
         }
 
     }
