@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ public class PhotoGallaryFragment extends Fragment {
     private List<GalleryItem> mItems = new ArrayList<>();
     private int mPageNumber = 1;
     boolean mLoading = false;
+    private int mPreviousWidth = 0;
 
     public static PhotoGallaryFragment newInstance() {
         return new PhotoGallaryFragment();
@@ -42,9 +44,23 @@ public class PhotoGallaryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_photo_gallery, container, false);
         mPhotoRecylerView = v.findViewById(R.id.photo_recycler_view);
+
         mPhotoRecylerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
 
         setupAdapter();
+
+
+        ViewTreeObserver vto = mPhotoRecylerView.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
+            @Override
+            public void onGlobalLayout() {
+                if (mPhotoRecylerView.getWidth() != mPreviousWidth) {
+                    mPreviousWidth = mPhotoRecylerView.getWidth();
+                    Log.d(TAG, "Computed column count : " + mPhotoRecylerView.getWidth() / 360);
+                    mPhotoRecylerView.setLayoutManager(new GridLayoutManager(getActivity(),mPhotoRecylerView.getWidth() / 360));
+                }
+            }
+        });
 
         return v;
     }
@@ -75,6 +91,7 @@ public class PhotoGallaryFragment extends Fragment {
         private List<GalleryItem> mGalleryItems;
 
         public PhotoAdaper(List<GalleryItem> items) {
+
             mGalleryItems = items;
 
             mPhotoRecylerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
