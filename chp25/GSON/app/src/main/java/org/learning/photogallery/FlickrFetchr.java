@@ -3,11 +3,10 @@ package org.learning.photogallery;
 import android.net.Uri;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
-import java.io.ByteArrayInputStream;
+import org.json.JSONException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,32 +65,26 @@ public class FlickrFetchr {
                     toString();
             String jsonString = getUrlString(url);
             Log.i(TAG, "Received JSON :\n" + jsonString);
-            JSONObject jsonBody = new JSONObject(jsonString);
-            parseItems(items,jsonBody);
+            parseItems(items,jsonString);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to fetch items", ioe);
-        } catch (JSONException je) {
-            Log.e(TAG, "Failed to parse jsob", je);
         }
         return items;
     }
 
-    private void parseItems(List<GalleryItem> items, JSONObject jsonBody) throws IOException, JSONException {
-        JSONObject photosJsonObject = jsonBody.getJSONObject("photos");
-        JSONArray photoJsonArray = photosJsonObject.getJSONArray("photo");
-
-        for (int i = 0; i < photoJsonArray.length(); i++) {
-            JSONObject photoJsonObject = photoJsonArray.getJSONObject(i);
+    private void parseItems(List<GalleryItem> items, String jsonBody)  {
+        Gson gson = new Gson();
+        FlickrPhotoSet photoSet = gson.fromJson(jsonBody, FlickrPhotoSet.class);
+        List<FlickrPhoto> photoList = photoSet.getPhotos().getPhoto();
+        for (FlickrPhoto photo : photoList) {
             GalleryItem item = new GalleryItem();
-
-            item.setId(photoJsonObject.getString("id"));
-            item.setCaption(photoJsonObject.getString("title"));
-
-            if (!photoJsonObject.has("url_s")) {
+            item.setId(photo.getId());
+            item.setCaption(photo.getTitle());
+            photo.getUrl_s();
+            if (photo.getUrl_s() == null || photo.getUrl_s().length() == 0) {
                 continue;
             }
-
-            item.setUrl(photoJsonObject.getString("url_s"));
+            item.setUrl(photo.getUrl_s());
             items.add(item);
         }
     }
