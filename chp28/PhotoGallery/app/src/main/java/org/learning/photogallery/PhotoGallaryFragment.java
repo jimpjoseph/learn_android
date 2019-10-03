@@ -1,5 +1,6 @@
 package org.learning.photogallery;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -45,8 +46,7 @@ public class PhotoGallaryFragment extends Fragment {
         setRetainInstance(true);
         updateItems();
 
-        Intent i = PollService.newIntent(getActivity());
-        getActivity().startService(i);
+        PollService.setAlarmService(getActivity(), true);
 
         Handler responseHandler = new Handler();
         mThumbnailDownloader = new ThumbnailDownloader<>(responseHandler);
