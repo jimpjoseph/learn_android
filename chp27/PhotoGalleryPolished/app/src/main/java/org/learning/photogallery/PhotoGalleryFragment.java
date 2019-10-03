@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 
 import androidx.appcompat.widget.SearchView;
@@ -34,6 +35,9 @@ public class PhotoGalleryFragment extends Fragment {
 
     private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
 
+    private ProgressBar mProgressBar;
+
+
     public static PhotoGalleryFragment newInstance() {
         return new PhotoGalleryFragment();
     }
@@ -42,6 +46,8 @@ public class PhotoGalleryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+
+
         updateItems();
 
         Handler responseHandler = new Handler();
@@ -59,14 +65,21 @@ public class PhotoGalleryFragment extends Fragment {
         mThumbnailDownloader.getLooper();
 
         setHasOptionsMenu(true);
+
+
+
         Log.i(TAG, "Background thread started");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_photo_gallery, container, false);
+        mProgressBar = v.findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.VISIBLE);
+
         mPhotoRecylerView = v.findViewById(R.id.photo_recycler_view);
         mPhotoRecylerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        mPhotoRecylerView.setVisibility(View.GONE);
 
         setupAdapter();
         return v;
@@ -86,9 +99,12 @@ public class PhotoGalleryFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 Log.d(TAG, "QueryTextSubmit: " + s);
+                mPhotoRecylerView.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.VISIBLE);
                 QueryPreferences.setStoredQuery(getActivity(), s);
                 updateItems();
                 searchView.onActionViewCollapsed();
+
                 return true;
             }
 
@@ -119,6 +135,8 @@ public class PhotoGalleryFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.menu_item_clear:
                 QueryPreferences.setStoredQuery(getActivity(), null);
+                mPhotoRecylerView.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.VISIBLE);
                 updateItems();
                 return true;
             default:
@@ -210,6 +228,8 @@ public class PhotoGalleryFragment extends Fragment {
         @Override
         protected void onPostExecute(List<GalleryItem> items) {
             mItems = items;
+            mProgressBar.setVisibility(View.GONE);
+            mPhotoRecylerView.setVisibility(View.VISIBLE);
             setupAdapter();
         }
 
