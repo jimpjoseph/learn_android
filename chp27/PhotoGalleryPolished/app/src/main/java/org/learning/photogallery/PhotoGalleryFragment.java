@@ -17,16 +17,16 @@ import android.widget.ImageView;
 
 
 import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhotoGallaryFragment extends Fragment {
-    public static final String TAG = PhotoGallaryFragment.class.getSimpleName();
+public class PhotoGalleryFragment extends Fragment {
+    public static final String TAG = PhotoGalleryFragment.class.getSimpleName();
 
     private RecyclerView mPhotoRecylerView;
 
@@ -34,8 +34,8 @@ public class PhotoGallaryFragment extends Fragment {
 
     private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
 
-    public static PhotoGallaryFragment newInstance() {
-        return new PhotoGallaryFragment();
+    public static PhotoGalleryFragment newInstance() {
+        return new PhotoGalleryFragment();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class PhotoGallaryFragment extends Fragment {
         menuInflater.inflate(R.menu.fragment_photo_gallery, menu);
 
 
-        MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        final MenuItem searchItem = menu.findItem(R.id.menu_item_search);
 
 
         final SearchView searchView = (SearchView) searchItem.getActionView();
@@ -88,6 +88,7 @@ public class PhotoGallaryFragment extends Fragment {
                 Log.d(TAG, "QueryTextSubmit: " + s);
                 QueryPreferences.setStoredQuery(getActivity(), s);
                 updateItems();
+                searchView.onActionViewCollapsed();
                 return true;
             }
 
