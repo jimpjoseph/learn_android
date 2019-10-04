@@ -41,6 +41,8 @@ public class PollService extends IntentService {
             alarmManager.cancel(pi);
             pi.cancel();
         }
+
+        QueryPreferences.setAlarmOn(context,isOn);
     }
 
     public static boolean isServiceAlarmOn(Context context) {
@@ -96,7 +98,7 @@ public class PollService extends IntentService {
             notificationManagerCompat.notify(0, notification);
         }
 
-        QueryPreferences.setSLastResultId(this, resultId);
+        QueryPreferences.setLastResultId(this, resultId);
     }
 
     private boolean isNetworkAvailableAndConnected() {
