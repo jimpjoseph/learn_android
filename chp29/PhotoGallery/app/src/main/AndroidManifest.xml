@@ -40,6 +40,12 @@
             </intent-filter>
         </receiver>
         -->
+        <receiver android:name=".NotificationReceiver" android:exported="false">
+            <intent-filter android:priority="-999">
+                <action
+                    android:name="org.learning.photogallery.SHOW_NOTIFCATION" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
