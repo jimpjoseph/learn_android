@@ -1,6 +1,7 @@
 package org.learning.photogallery;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class PhotoPageFragment extends VisibleFragment {
     private static final String ARG_URI = "photo_page_url";
+    private static final String TAG = "PhotoPageFragment";
 
     private Uri mUri;
     private WebView mWebView;
@@ -66,7 +68,19 @@ public class PhotoPageFragment extends VisibleFragment {
                 activity.getSupportActionBar().setSubtitle(title);
             }
         });
-        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Log.i(TAG , "Loading URL to Load : " + url);
+                if (url.contains("http:")) {
+                    Uri uri = Uri.parse(url);
+                    Intent i = new Intent(Intent.ACTION_SEND, uri);
+                    startActivity(i);
+                    return true;
+                }
+                return false;
+            }
+        }) ;
         mWebView.loadUrl(mUri.toString());
 
         return v;
