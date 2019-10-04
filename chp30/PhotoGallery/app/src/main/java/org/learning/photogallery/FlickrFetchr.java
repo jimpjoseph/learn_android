@@ -111,12 +111,14 @@ public class FlickrFetchr {
             item.setId(photoJsonObject.getString("id"));
             item.setCaption(photoJsonObject.getString("title"));
 
-            if (!photoJsonObject.has("url_s")) {
+            if (!photoJsonObject.has("url_s") || !photoJsonObject.has("owner")) {
+                Log.w(TAG,"Item with id: " + item.getId() +  " Title: " + item.getCaption() + " discarded");
                 continue;
             }
 
             item.setUrl(photoJsonObject.getString("url_s"));
-            item.setOwner(photosJsonObject.getString("owner"));
+
+            item.setOwner(photoJsonObject.getString("owner"));
             items.add(item);
         }
     }
