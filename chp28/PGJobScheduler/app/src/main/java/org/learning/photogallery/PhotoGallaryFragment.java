@@ -1,7 +1,5 @@
 package org.learning.photogallery;
 
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -23,7 +21,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +42,6 @@ public class PhotoGallaryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         updateItems();
-
-        //PollService.setAlarmService(getActivity(), true);
 
         Handler responseHandler = new Handler();
         mThumbnailDownloader = new ThumbnailDownloader<>(responseHandler);
@@ -81,9 +76,7 @@ public class PhotoGallaryFragment extends Fragment {
         super.onCreateOptionsMenu(menu, menuInflater);
         menuInflater.inflate(R.menu.fragment_photo_gallery, menu);
 
-
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
-
 
         final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -111,7 +104,7 @@ public class PhotoGallaryFragment extends Fragment {
         });
 
         MenuItem toogleItem = menu.findItem(R.id.menu_item_toogle_polling);
-        if (PollService.isServiceAlarmOn(getActivity())) {
+        if (PollService.isPollServiceOn(getActivity())) {
             toogleItem.setTitle(R.string.stop_polling);
         } else {
             toogleItem.setTitle(R.string.start_polling);
@@ -132,8 +125,8 @@ public class PhotoGallaryFragment extends Fragment {
                 updateItems();
                 return true;
             case R.id.menu_item_toogle_polling:
-                boolean shouldStartAlam = !PollService.isServiceAlarmOn(getActivity());
-                PollService.setAlarmService(getActivity(), shouldStartAlam);
+                boolean shouldStartAlam = !PollService.isPollServiceOn(getActivity());
+                PollService.setPollService(getActivity(), shouldStartAlam);
                 getActivity().invalidateOptionsMenu();
                 return true;
             default:
