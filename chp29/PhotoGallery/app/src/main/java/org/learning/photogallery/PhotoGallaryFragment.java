@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhotoGallaryFragment extends Fragment {
+public class PhotoGallaryFragment extends VisibleFragment {
     public static final String TAG = PhotoGallaryFragment.class.getSimpleName();
 
     private RecyclerView mPhotoRecylerView;

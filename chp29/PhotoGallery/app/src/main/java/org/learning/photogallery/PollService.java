@@ -25,6 +25,8 @@ public class PollService extends IntentService {
     //Set interval to 1 minute.
     private static final long POLL_INTERVAL_MS = TimeUnit.MINUTES.toMillis(1);
 
+    public static final String ACTION_SHOW_NOTICATION = "org.learning.photogallery.SHOW_NOTIFCATION";
+
     public static Intent newIntent(Context context) {
         return new Intent(context, PollService.class);
     }
@@ -96,6 +98,7 @@ public class PollService extends IntentService {
 
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
             notificationManagerCompat.notify(0, notification);
+            sendBroadcast(new Intent(ACTION_SHOW_NOTICATION));
         }
 
         QueryPreferences.setLastResultId(this, resultId);
