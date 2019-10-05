@@ -1,5 +1,8 @@
 package helloworld
 
+import geometry.shapes.Rectangle
+import geometry.shapes.createRandomRectange
+
 fun main(args: Array<String>) {
     println("Hello, World!")
     println("Max of 4 & 3 is : " + max(4,3))
@@ -14,6 +17,13 @@ fun main(args: Array<String>) {
     val person = Person("Bob", true)
     println(person.name)
     println(person.isMarried)
+
+    val rect1  = Rectangle(41,43)
+    val rect2  = Rectangle(41,41)
+    println(rect1.isSquare)
+    println(rect2.isSquare)
+    println(createRandomRectange().isSquare)
+
 }
 
 fun max(a: Int, b: Int): Int {
