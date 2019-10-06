@@ -2,6 +2,9 @@ package examples
 
 import geometry.shapes.Rectangle
 import geometry.shapes.createRandomRectange
+import java.io.BufferedReader
+import java.io.StringReader
+import java.lang.NumberFormatException
 import java.util.*
 
 fun main(args: Array<String>) {
@@ -48,10 +51,24 @@ fun main(args: Array<String>) {
     println(isNotDigit('4'))
     println(recognize('8'))
     println("Kotlin" in "Java".."Scala")
+    val reader1 = BufferedReader(StringReader("100"))
+    readNumber(reader1)
+    val reader2 = BufferedReader(StringReader("not a number"))
+    readNumber(reader2)
+
 }
 
 fun max(a: Int, b: Int): Int {
     return if (a > b) a else b
+}
+
+fun readNumber(reader: BufferedReader) {
+    val number = try {
+        Integer.parseInt(reader.readLine())
+    } catch (e : NumberFormatException) {
+        null
+    }
+    println(number)
 }
 
 fun fizzBuzz(i: Int) = when {
