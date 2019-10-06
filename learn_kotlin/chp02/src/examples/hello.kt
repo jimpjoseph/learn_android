@@ -30,6 +30,7 @@ fun main(args: Array<String>) {
     println(evalNI(Sum(Sum(Num(1), Num(2)),Num(4))))
     println(eval1(Sum(Sum(Num(1), Num(2)),Num(4))))
     println(eval(Sum(Sum(Num(1), Num(2)),Num(4))))
+    println(evalWithLogging(Sum(Sum(Num(1), Num(2)),Num(4))))
 }
 
 fun max(a: Int, b: Int): Int {
