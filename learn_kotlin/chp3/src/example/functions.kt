@@ -10,11 +10,16 @@ fun main(args : Array<String>) {
 fun s3_2() {
     val list = listOf(1,2,3)
     println(list)
-    println(joinToString(list))
-    println(joinToString(list,"| "))
-    println(joinToString(list,"; ", "(", ")"))
-    println(joinToString(list,prefix = "# ", postfix = "; "))
+    println(list.joinToString())
+    println(list.joinToString("| "))
+    println(list.joinToString("; ", "(", ")"))
+    println(list.joinToString(prefix = "# ", postfix = "; "))
     println("Kotlin".lastChar())
+    //println("Kotlin".lastChar)
+    val sb = StringBuilder("Kotlin?")
+    sb.lastChar = '!'
+    println(sb)
+
 }
 
 
