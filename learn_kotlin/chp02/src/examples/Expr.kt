@@ -18,3 +18,23 @@ fun evalNI(e: Expr) : Int {
     }
     throw IllegalArgumentException("Unknown expression")
 }
+
+// Eval - idomatic version with If
+
+fun eval1(e: Expr) : Int =
+    if (e is Num) {
+        e.value
+    } else if (e is Sum) {
+        eval1(e.left) + eval1(e.right)
+    } else {
+        throw IllegalArgumentException("Unkown expression")
+    }
+
+// Eval - version using when
+
+fun eval(e: Expr): Int =
+    when(e) {
+        is Num -> e.value
+        is Sum -> eval(e.left) + eval(e.right)
+        else -> throw IllegalArgumentException("Unknown expression")
+    }
