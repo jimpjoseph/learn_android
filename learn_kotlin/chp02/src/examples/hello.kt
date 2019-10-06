@@ -27,6 +27,7 @@ fun main(args: Array<String>) {
     println(getWarmth(Color.YELLOW))
     println(mix(Color.BLUE, Color.YELLOW))
     println(mixOptimized(Color.BLUE, Color.YELLOW))
+    println(evalNI(Sum(Sum(Num(1), Num(2)),Num(4))))
 
 }
 
