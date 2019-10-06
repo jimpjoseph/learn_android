@@ -19,10 +19,25 @@ fun s3_2() {
     val sb = StringBuilder("Kotlin?")
     sb.lastChar = '!'
     println(sb)
-
+    s3_5()
 }
 
 
+fun s3_5() {
+    println("12.345-6.A".split("\\.|-".toRegex()))
+    println("12.345-6.A".split(".","-"))
+    parsePath("/Users/yole/kotlin-book/chapter.adoc")
+}
+
+fun parsePath(path: String) {
+    val directory = path.substringBeforeLast("/")
+    val fullName = path.substringAfterLast("/")
+
+    val fileName = fullName.substringBeforeLast(".")
+    val extension = fullName.substringAfterLast(".")
+
+    println("Dir: $directory, name: $fileName, ext: $extension")
+}
 
 fun s3_1() {
     val set = hashSetOf(1,7,53)
