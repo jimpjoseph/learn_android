@@ -1,4 +1,4 @@
-package helloworld
+package examples
 
 class Person (
     val name: String,

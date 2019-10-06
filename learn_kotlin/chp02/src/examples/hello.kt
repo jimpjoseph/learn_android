@@ -1,4 +1,4 @@
-package helloworld
+package examples
 
 import geometry.shapes.Rectangle
 import geometry.shapes.createRandomRectange
@@ -23,6 +23,10 @@ fun main(args: Array<String>) {
     println(rect1.isSquare)
     println(rect2.isSquare)
     println(createRandomRectange().isSquare)
+    println(getMnemonic(Color.BLUE))
+    println(getWarmth(Color.YELLOW))
+    println(mix(Color.BLUE, Color.YELLOW))
+    println(mixOptimized(Color.BLUE, Color.YELLOW))
 
 }
 
