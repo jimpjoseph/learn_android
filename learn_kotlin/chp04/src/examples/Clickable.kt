@@ -18,3 +18,11 @@ class Button : Clickable, Focusable {
         super<Focusable>.showOff()
     }
 }
+
+open class RichButton : Clickable {
+    fun disable() {}
+
+    open fun animate() {}
+
+    override fun click() { }
+}
