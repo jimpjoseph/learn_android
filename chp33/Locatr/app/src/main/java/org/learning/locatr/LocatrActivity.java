@@ -1,11 +1,9 @@
 package org.learning.locatr;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -15,7 +13,7 @@ public class LocatrActivity extends SingleFragmentActivity {
 
     @Override
     public Fragment createFragment() {
-        return LocatorFragment.newInstance();
+        return LocatrFragment.newInstance();
     }
 
     @Override
