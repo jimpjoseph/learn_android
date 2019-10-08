@@ -29,6 +29,8 @@ class Client(val name:String, val postalCode : Int) {
     }
 }
 
+data class ClientD(val name:String, val postalCode : Int)
+
 fun s4_3() {
     val client1 = Client("James Joseph", 60606)
     println(client1)
@@ -37,4 +39,12 @@ fun s4_3() {
 
     val processed = hashSetOf(client1)
     println(processed.contains(client2))
+
+    val clientd1 = ClientD("James Joseph", 60606)
+    println(clientd1)
+    val clientd2 = ClientD("James Joseph", 60606)
+    println(clientd1 == clientd2)
+
+    val processedd = hashSetOf(clientd1)
+    println(processedd.contains(clientd2))
 }
