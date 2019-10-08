@@ -14,4 +14,6 @@ fun s4_1() {
     but.setFocus(true)
     but.showOff()
     but.setFocus(false)
+
+    println(eval(Expr.Sum(Expr.Num(1), Expr.Sum(Expr.Num(2),Expr.Num(3)))))
 }
