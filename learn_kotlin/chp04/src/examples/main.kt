@@ -47,4 +47,6 @@ fun s4_3() {
 
     val processedd = hashSetOf(clientd1)
     println(processedd.contains(clientd2))
+
+    println(clientd1.copy(postalCode = 60047))
 }
