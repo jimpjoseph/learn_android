@@ -67,6 +67,9 @@ fun s4_4() {
     println(files.sortedWith(CaseInsensitiveFileComparator))
     val persons = listOf(Person("James"), Person("Jennifer"), Person("Noella"), Person("Nathan"))
     println(persons.sortedWith(Person.NameComparator))
+
+    val subscribingUser = User.newSubscribingUser("james.joseph@here.com")
+    println(subscribingUser)
 }
 
 object CaseInsensitiveFileComparator : Comparator<File> {
@@ -80,5 +83,15 @@ data class Person(val name: String) {
         override fun compare(p1: Person, p2: Person): Int {
             return p1.name.compareTo(p2.name)
         }
+    }
+}
+
+class User private constructor(val nickName: String) {
+    companion object {
+        fun newSubscribingUser(email: String) = User(email.substringBefore('@'))
+    }
+
+    override fun toString(): String {
+        return nickName
     }
 }
