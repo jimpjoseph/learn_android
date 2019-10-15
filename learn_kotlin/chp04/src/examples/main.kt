@@ -65,10 +65,20 @@ fun s4_4() {
     println(CaseInsensitiveFileComparator.compare(File("/user"), File("/USER")))
     val files = listOf(File("/Z"), File("/a"), File("/M"), File("/h"))
     println(files.sortedWith(CaseInsensitiveFileComparator))
+    val persons = listOf(Person("James"), Person("Jennifer"), Person("Noella"), Person("Nathan"))
+    println(persons.sortedWith(Person.NameComparator))
 }
 
 object CaseInsensitiveFileComparator : Comparator<File> {
     override fun compare(file1: File, file2: File): Int {
         return file1.path.compareTo(file2.path, true)
+    }
+}
+
+data class Person(val name: String) {
+    object NameComparator: Comparator<Person> {
+        override fun compare(p1: Person, p2: Person): Int {
+            return p1.name.compareTo(p2.name)
+        }
     }
 }
