@@ -4,6 +4,7 @@ fun main(args: Array<String>){
     println("Chapter 04")
     s4_1()
     s4_3()
+    s4_3_3()
 }
 
 fun s4_1() {
@@ -49,4 +50,10 @@ fun s4_3() {
     println(processedd.contains(clientd2))
 
     println(clientd1.copy(postalCode = 60047))
+}
+
+fun s4_3_3() {
+    val cset = CountingSet<Int>()
+    cset.addAll(listOf(1,1,2))
+    println("${cset.objectAdded} objects were added, ${cset.size} remain")
 }
