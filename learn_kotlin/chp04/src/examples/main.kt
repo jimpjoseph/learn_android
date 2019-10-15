@@ -1,10 +1,13 @@
 package examples
 
+import java.io.File
+
 fun main(args: Array<String>){
     println("Chapter 04")
     s4_1()
     s4_3()
     s4_3_3()
+    s4_4()
 }
 
 fun s4_1() {
@@ -56,4 +59,16 @@ fun s4_3_3() {
     val cset = CountingSet<Int>()
     cset.addAll(listOf(1,1,2))
     println("${cset.objectAdded} objects were added, ${cset.size} remain")
+}
+
+fun s4_4() {
+    println(CaseInsensitiveFileComparator.compare(File("/user"), File("/USER")))
+    val files = listOf(File("/Z"), File("/a"), File("/M"), File("/h"))
+    println(files.sortedWith(CaseInsensitiveFileComparator))
+}
+
+object CaseInsensitiveFileComparator : Comparator<File> {
+    override fun compare(file1: File, file2: File): Int {
+        return file1.path.compareTo(file2.path, true)
+    }
 }
