@@ -26,4 +26,15 @@ fun s5_1() {
     println(people.minBy { it.age })
     println(people.minBy (Person::age))
     println(people.maxBy (Person::age))
+
+    val sum = {x: Int, y: Int -> x + y}
+    println("Sum is ${sum(10, 43)}")
+
+    run { println(42) }
+    println(people.maxBy { p : Person -> p.age })
+
+    println(people.joinToString (separator = " ", transform = {p : Person -> p.name}))
+    println(people.joinToString(" "){p: Person -> p.name})
+    println(people.joinToString(" "){p -> p.name})
+    println(people.joinToString(" "){ it.name})
 }
