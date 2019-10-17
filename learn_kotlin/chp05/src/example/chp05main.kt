@@ -5,6 +5,7 @@ fun main(args: Array<String>) {
     s5_2_1()
     s5_2_2()
     s5_2_3()
+    s5_2_4()
 }
 
 data class Person(val name: String, val age: Int)
@@ -126,4 +127,13 @@ fun s5_2_3() {
 
     val list = listOf("a", "ab", "b")
     println(list.groupBy ( String::first ))
+}
+
+class Book(val title : String, val authors : List<String>)
+
+fun s5_2_4() {
+    val books = listOf(Book("Of Jim and Jenny", listOf("James", "Jenny")), Book("600 Grethe", listOf("James", "Jenny", "Noella", "Nathan")))
+    println(books.flatMap { it.authors }.toSet())
+    val strings = listOf("abc","def")
+    println(strings.flatMap { it.toList() })
 }
