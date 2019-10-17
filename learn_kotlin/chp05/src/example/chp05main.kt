@@ -4,6 +4,7 @@ fun main(args: Array<String>) {
     s5_1()
     s5_2_1()
     s5_2_2()
+    s5_2_3()
 }
 
 data class Person(val name: String, val age: Int)
@@ -116,5 +117,13 @@ fun s5_2_2() {
     println(list.any{it != 3})
     println(people.count(canBeInClub27))
     println(people.find(canBeInClub27))
-    
+
+}
+
+fun s5_2_3() {
+    val people = listOf(Person("Alice", 27), Person("Bob", 31), Person("Carol", 31))
+    println(people.groupBy { it.age })
+
+    val list = listOf("a", "ab", "b")
+    println(list.groupBy ( String::first ))
 }
