@@ -3,6 +3,7 @@ package example
 fun main(args: Array<String>) {
     s5_1()
     s5_2_1()
+    s5_2_2()
 }
 
 data class Person(val name: String, val age: Int)
@@ -103,4 +104,17 @@ fun s5_2_1() {
 
     val numbers = mapOf(0 to "zero", 1 to "one")
     println(numbers.mapValues { it.value.toUpperCase() })
+}
+
+fun s5_2_2() {
+    val canBeInClub27 = { p: Person -> p.age <= 27 }
+    val people = listOf(Person("Alice", 27), Person("Bob", 31))
+    println(people.all(canBeInClub27))
+    println(people.any(canBeInClub27))
+    val list = listOf(1,2,3)
+    println(!list.all { it == 3 })
+    println(list.any{it != 3})
+    println(people.count(canBeInClub27))
+    println(people.find(canBeInClub27))
+    
 }
