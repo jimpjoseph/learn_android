@@ -7,6 +7,7 @@ fun main(args: Array<String>) {
     s5_2_3()
     s5_2_4()
     s5_3_1()
+    s5_3_2()
 }
 
 data class Person(val name: String, val age: Int)
@@ -150,4 +151,10 @@ fun s5_3_1() {
         Person("Charles",31), Person("Dan",21))
     println(people.asSequence().map(Person::name).filter { it.length < 4 }.toList())
     println (people.asSequence().filter { it.name.length < 4}.map(Person::name).toList())
+}
+
+fun s5_3_2() {
+    val naturalNumbers = generateSequence(0) { it + 1  }
+    val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
+    println(numbersTo100.sum())
 }
