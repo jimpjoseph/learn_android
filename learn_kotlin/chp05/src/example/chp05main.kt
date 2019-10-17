@@ -39,6 +39,8 @@ fun printProblemCounts(responses: Collection<String>) {
     println("$clientErrors client errors, $serverErrors server errors")
 }
 
+fun Person.isAdult() = age >= 21
+
 fun s5_1() {
     val people = listOf(Person("Jim", 51), Person("Nathan",14), Person("Noella", 23), Person("Jenny",47))
     findTheOldest(people)
@@ -64,4 +66,20 @@ fun s5_1() {
 
     val responses = listOf("200 OK", "418 I'm a teapot", "500 Internal server error")
     printProblemCounts(responses)
+
+    val createPerson = ::Person
+    val p = createPerson("Alice", 29)
+    println(p)
+    val predicate = Person::isAdult
+    println(predicate(p))
+
+    //Bound reference
+    val p1 = Person("Dmitry", 34)
+    val personAgeFunction = Person::age
+    println(personAgeFunction(p1))
+
+    //Only after kotlin 1.1
+    val dmitryAgeFunction = p1::age
+    println(dmitryAgeFunction());
+
 }
