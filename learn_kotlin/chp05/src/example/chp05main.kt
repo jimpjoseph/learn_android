@@ -19,6 +19,26 @@ fun findTheOldest(people : List<Person>) {
     println(theOldest)
 }
 
+fun printMessagesWithPrefix(messages: Collection<String>, prefix: String) {
+    messages.forEach {
+        println("$prefix $it")
+    }
+}
+
+fun printProblemCounts(responses: Collection<String>) {
+    var clientErrors = 0
+    var serverErrors = 0
+
+    responses.forEach {
+        if (it.startsWith("4")) {
+            clientErrors++
+        } else if (it.startsWith("5")) {
+            serverErrors++
+        }
+    }
+    println("$clientErrors client errors, $serverErrors server errors")
+}
+
 fun s5_1() {
     val people = listOf(Person("Jim", 51), Person("Nathan",14), Person("Noella", 23), Person("Jenny",47))
     findTheOldest(people)
@@ -37,4 +57,11 @@ fun s5_1() {
     println(people.joinToString(" "){p: Person -> p.name})
     println(people.joinToString(" "){p -> p.name})
     println(people.joinToString(" "){ it.name})
+
+    val errors = listOf("403 Forbidden", "404 not found", "401 Unauthorized")
+
+    printMessagesWithPrefix(errors, "Error:")
+
+    val responses = listOf("200 OK", "418 I'm a teapot", "500 Internal server error")
+    printProblemCounts(responses)
 }
