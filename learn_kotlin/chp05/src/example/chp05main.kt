@@ -8,6 +8,7 @@ fun main(args: Array<String>) {
     s5_2_4()
     s5_3_1()
     s5_3_2()
+    s5_4_2()
 }
 
 data class Person(val name: String, val age: Int)
@@ -157,4 +158,12 @@ fun s5_3_2() {
     val naturalNumbers = generateSequence(0) { it + 1  }
     val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
     println(numbersTo100.sum())
+}
+
+
+fun createAllDoneRunnable(): Runnable {
+    return Runnable { println("All Done!") }
+}
+fun s5_4_2() {
+    createAllDoneRunnable().run()
 }
