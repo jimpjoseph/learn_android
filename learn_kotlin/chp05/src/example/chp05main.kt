@@ -6,6 +6,7 @@ fun main(args: Array<String>) {
     s5_2_2()
     s5_2_3()
     s5_2_4()
+    s5_3_1()
 }
 
 data class Person(val name: String, val age: Int)
@@ -136,4 +137,17 @@ fun s5_2_4() {
     println(books.flatMap { it.authors }.toSet())
     val strings = listOf("abc","def")
     println(strings.flatMap { it.toList() })
+}
+
+fun s5_3_1() {
+    println(listOf(1,2,3,4).asSequence()
+        .map { print("map $it "); it *it}
+        .filter { print("filter $it ") ; it %2 == 0}
+        .toList())
+    println(listOf(1,2,3,4).asSequence().map{it*it}.find{it > 3})
+
+    val people = listOf(Person("Alice", 29), Person("Bob", 31),
+        Person("Charles",31), Person("Dan",21))
+    println(people.asSequence().map(Person::name).filter { it.length < 4 }.toList())
+    println (people.asSequence().filter { it.name.length < 4}.map(Person::name).toList())
 }
