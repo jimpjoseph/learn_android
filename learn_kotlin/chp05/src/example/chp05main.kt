@@ -190,7 +190,23 @@ fun alphabetWith() =
         toString()
     }
 
+fun alphabetApply() = StringBuilder().apply {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\nNow I know the alphabet")
+}.toString()
+
+fun alphaBS() = buildString {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\nNow I know the alphabet")
+}
+
 fun s5_5() {
     println(alphabaet())
     println(alphabetWith())
+    println(alphabetApply())
+    println(alphaBS())
 }
