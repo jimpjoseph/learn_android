@@ -15,6 +15,7 @@ fun main(args: Array<String>) {
     s6_2_3()
     s6_3_1()
     s6_3_2()
+    s6_3_5()
 }
 
 fun strLen(s: String?) = if (s != null) s.length else 0
@@ -192,4 +193,24 @@ fun s6_3_2() {
     println(target)
     val t2: Collection<Int> = arrayListOf(1)
     //copyElements(source,t2)
+}
+
+
+
+fun s6_3_5() {
+    val letters = Array<String> (26) {i -> ('a' + i).toString()}
+    println(letters.joinToString("-"))
+    val strings = listOf("a", "b", "c")
+    println("%s/%s/%s".format(*strings.toTypedArray()))
+    val fiveZeros = IntArray(5)
+    val anotherIntArray = intArrayOf(1,2,3,4,5)
+    val squares = IntArray(5) {i -> (i+1) * (i+1)}
+    println(fiveZeros.joinToString())
+    println(anotherIntArray.joinToString())
+    println(squares.joinToString())
+
+    squares.forEachIndexed { index, i ->
+        val v = index + 1
+        println("Square of $v is: $i")
+    }
 }
