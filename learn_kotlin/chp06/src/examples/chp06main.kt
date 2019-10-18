@@ -14,6 +14,7 @@ fun main(args: Array<String>) {
     s6_2_2()
     s6_2_3()
     s6_3_1()
+    s6_3_2()
 }
 
 fun strLen(s: String?) = if (s != null) s.length else 0
@@ -177,4 +178,18 @@ fun s6_3_1() {
     println( readNumbers( BufferedReader(StringReader("10\na\n100\n20")) ))
     addValidNumbers( readNumbers( BufferedReader(StringReader("10\na\n100\n20")) ))
     addValidNumbers2( readNumbers( BufferedReader(StringReader("10\na\n100\n20")) ))
+}
+
+fun <T> copyElements(source: Collection<T>,
+                     target: MutableCollection<T>) {
+    target.addAll(source)
+}
+
+fun s6_3_2() {
+    val source: Collection<Int> = arrayListOf(3,5,7)
+    val target: MutableCollection<Int> = arrayListOf(1)
+    copyElements(source,target)
+    println(target)
+    val t2: Collection<Int> = arrayListOf(1)
+    //copyElements(source,t2)
 }
