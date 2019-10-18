@@ -4,6 +4,7 @@ fun main(args: Array<String>) {
     s6_1_1()
     s6_1_3()
     s6_1_4()
+    s6_1_7()
 }
 
 fun strLen(s: String?) = if (s != null) s.length else 0
@@ -50,4 +51,16 @@ fun s6_1_4() {
     val p2 = Person("James", "Joseph")
     println(p1.equals(p2))
     println(p1.equals("James Joseph"))
+}
+
+fun sendEmailTo(email: String) {
+    println("Sending email to $email")
+}
+
+fun s6_1_7() {
+    val email1 : String? = "james.joseph@gmail.com"
+    email1?.let { sendEmailTo(it) }
+
+    val email2 : String? = null
+    email2?.let { sendEmailTo(it) }
 }
