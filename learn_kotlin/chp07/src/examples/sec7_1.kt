@@ -1,5 +1,7 @@
 package examples
 
+import java.math.BigDecimal
+
 data class Point(val x: Int, val y : Int)
 
 operator fun Point.plus(other :Point): Point {
@@ -18,6 +20,12 @@ operator fun Char.times(count: Int): String {
     return toString().repeat(count)
 }
 
+operator fun Point.unaryMinus(): Point {
+    return Point(-x, -y)
+}
+
+operator fun BigDecimal.inc() = this + BigDecimal.ONE
+
 fun s7_1_1() {
     println("7.1.1")
     val p1 = Point(10,20)
@@ -29,5 +37,22 @@ fun s7_1_1() {
     println(0x0F and 0xF0)
     println(0x0F or 0xF0)
     println(0x01 shl 4)
+}
+
+fun s7_1_2() {
+    println("7.1.2")
+    var point = Point(1,2)
+    point += Point(3,4)
+    println(point)
+
+    val list = arrayListOf(1,2)
+    list += 3
+    val newList = list + listOf(4,5)
+    println(list)
+    println(newList)
+    println(-point)
+    var bd = BigDecimal.ZERO
+    println(bd++)
+    println(++bd)
 }
 
