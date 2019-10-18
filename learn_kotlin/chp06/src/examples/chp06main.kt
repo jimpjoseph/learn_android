@@ -1,5 +1,8 @@
 package examples
 
+import java.io.BufferedReader
+import java.io.StringReader
+
 fun main(args: Array<String>) {
     s6_1_1()
     s6_1_3()
@@ -10,6 +13,7 @@ fun main(args: Array<String>) {
     s6_2_1()
     s6_2_2()
     s6_2_3()
+    s6_3_1()
 }
 
 fun strLen(s: String?) = if (s != null) s.length else 0
@@ -138,4 +142,39 @@ fun s6_2_3() {
     foo(l1)
     foo(42)
     println("434".toInt())
+}
+
+fun readNumbers(reader: BufferedReader): List<Int?> {
+    val result = ArrayList<Int?>()
+    for (line in reader.lineSequence()) {
+        result.add(line.toIntOrNull())
+    }
+    return result;
+}
+
+fun addValidNumbers(numbers: List<Int?>) {
+    var sumOfValidNumbers = 0
+    var invalidNumbers = 0
+    for (number in numbers) {
+        if (number != null) {
+            sumOfValidNumbers += number
+        } else {
+            invalidNumbers++
+        }
+    }
+    println("Sum of valid numbers = $sumOfValidNumbers")
+    println("Invalid numbers: $invalidNumbers")
+}
+
+fun addValidNumbers2(numbers: List<Int?>) {
+    val validNumbers = numbers.filterNotNull()
+    println("addValidNumbers2 Sum of valid numbers = ${validNumbers.sum()}")
+    println("addValidNumbers2 Invalid numbers: ${numbers.size - validNumbers.size}")
+}
+
+
+fun s6_3_1() {
+    println( readNumbers( BufferedReader(StringReader("10\na\n100\n20")) ))
+    addValidNumbers( readNumbers( BufferedReader(StringReader("10\na\n100\n20")) ))
+    addValidNumbers2( readNumbers( BufferedReader(StringReader("10\na\n100\n20")) ))
 }
