@@ -6,6 +6,7 @@ fun main(args: Array<String>) {
     s6_1_4()
     s6_1_7()
     s6_1_9()
+    s6_1_10()
 }
 
 fun strLen(s: String?) = if (s != null) s.length else 0
@@ -78,4 +79,18 @@ fun s6_1_9() {
     valdiateInput(("jim"))
     valdiateInput("      ")
     valdiateInput(null)
+}
+
+fun <T> printHashCode(t: T) {
+    println(t?.hashCode())
+}
+
+fun <T: Any> printHashCode2(t: T) {
+    println(t.hashCode())
+}
+fun s6_1_10() {
+    printHashCode("String")
+    printHashCode(null)
+    printHashCode2("String")
+    //printHashCode2(null)
 }
