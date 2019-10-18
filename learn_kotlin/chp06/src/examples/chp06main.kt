@@ -8,6 +8,7 @@ fun main(args: Array<String>) {
     s6_1_9()
     s6_1_10()
     s6_2_1()
+    s6_2_2()
 }
 
 fun strLen(s: String?) = if (s != null) s.length else 0
@@ -103,4 +104,20 @@ fun showProgress(progress: Int) {
 
 fun s6_2_1() {
     showProgress(146)
+}
+
+data class PersonD(val name: String,
+                val age: Int? = null) {
+    fun isOlderThan(other: PersonD): Boolean? {
+        if (age == null || other.age == null) {
+            return null
+        }
+        return age > other.age
+    }
+}
+
+fun s6_2_2() {
+    println(PersonD("Sam",35).isOlderThan(PersonD("Amy",42)))
+    println(PersonD("Sam",35).isOlderThan(PersonD("Jane")))
+
 }
