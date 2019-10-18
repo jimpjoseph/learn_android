@@ -5,6 +5,7 @@ fun main(args: Array<String>) {
     s6_1_3()
     s6_1_4()
     s6_1_7()
+    s6_1_9()
 }
 
 fun strLen(s: String?) = if (s != null) s.length else 0
@@ -63,4 +64,18 @@ fun s6_1_7() {
 
     val email2 : String? = null
     email2?.let { sendEmailTo(it) }
+}
+
+fun String?.isNullOrBlank(): Boolean =
+    this == null || this.isBlank()
+
+fun valdiateInput(input: String?) {
+    if (input.isNullOrBlank()) {
+        println("Please full in the required fields")
+    }
+}
+fun s6_1_9() {
+    valdiateInput(("jim"))
+    valdiateInput("      ")
+    valdiateInput(null)
 }
