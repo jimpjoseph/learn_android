@@ -9,6 +9,7 @@ fun main(args: Array<String>) {
     s6_1_10()
     s6_2_1()
     s6_2_2()
+    s6_2_3()
 }
 
 fun strLen(s: String?) = if (s != null) s.length else 0
@@ -120,4 +121,21 @@ fun s6_2_2() {
     println(PersonD("Sam",35).isOlderThan(PersonD("Amy",42)))
     println(PersonD("Sam",35).isOlderThan(PersonD("Jane")))
 
+}
+
+fun foo(l: Long) = println(l)
+
+fun s6_2_3() {
+    val i = 1
+    //val l : Long = i
+    val l: Long = i.toLong()
+    val x = 1
+    val list = listOf(1L, 2L, 3L)
+    //println(x in list)  -- this does not complie as implicit conversion is not supported
+    println(x.toLong() in list)
+    val b: Byte = 1
+    val l1 = b + 1L
+    foo(l1)
+    foo(42)
+    println("434".toInt())
 }
