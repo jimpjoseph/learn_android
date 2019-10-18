@@ -7,6 +7,7 @@ fun main(args: Array<String>) {
     s6_1_7()
     s6_1_9()
     s6_1_10()
+    s6_2_1()
 }
 
 fun strLen(s: String?) = if (s != null) s.length else 0
@@ -93,4 +94,13 @@ fun s6_1_10() {
     printHashCode(null)
     printHashCode2("String")
     //printHashCode2(null)
+}
+
+fun showProgress(progress: Int) {
+    val percent = progress.coerceIn(0,100)
+    println("We're ${percent}% done!")
+}
+
+fun s6_2_1() {
+    showProgress(146)
 }
