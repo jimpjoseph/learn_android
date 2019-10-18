@@ -39,6 +39,12 @@ fun s7_1_1() {
     println(0x01 shl 4)
 }
 
+class Person(val firstName: String, val lastName: String) : Comparable<Person> {
+    override fun compareTo(other: Person): Int {
+        return compareValuesBy(this,other, Person::lastName, Person::firstName)
+    }
+}
+
 fun s7_1_2() {
     println("7.1.2")
     var point = Point(1,2)
@@ -54,5 +60,10 @@ fun s7_1_2() {
     var bd = BigDecimal.ZERO
     println(bd++)
     println(++bd)
+
+    val p1 = Person("James", "Joseph")
+    val p2 = Person("Jennifer", "James")
+
+    println(p1<p2)
 }
 
