@@ -1,6 +1,7 @@
 package examples
 
 import java.math.BigDecimal
+import java.time.LocalDate
 
 data class Point(val x: Int, val y : Int)
 
@@ -112,4 +113,11 @@ fun s7_3() {
     val rect = Rectangle(Point(10,20),Point(50,50))
     println(Point(20,30 ) in rect)
     println(Point(5,5) in rect)
+
+    val now = LocalDate.now()
+    val vacation = now..now.plusDays(10)
+    println(now.plusWeeks(1) in vacation)
+
+    val n = 9
+    (0..(n+1)).forEach { print(it) }
 }
