@@ -46,7 +46,7 @@ class Person(val firstName: String, val lastName: String) : Comparable<Person> {
 }
 
 fun s7_1_2() {
-    println("7.1.2")
+    println("****   7.1.2 *****")
     var point = Point(1,2)
     point += Point(3,4)
     println(point)
@@ -67,3 +67,37 @@ fun s7_1_2() {
     println(p1<p2)
 }
 
+operator fun Point.get(index: Int): Int {
+    return when(index) {
+        0 -> x
+        1 -> y
+        else -> throw IndexOutOfBoundsException("Invalid coordinate $index")
+    }
+}
+
+data class MutablePoint(var x: Int, var y: Int)
+
+operator fun MutablePoint.get(index: Int): Int {
+    return when(index) {
+        0 -> x
+        1 -> y
+        else -> throw IndexOutOfBoundsException("Invalid coordinate $index")
+    }
+}
+
+operator fun MutablePoint.set(index: Int, value : Int) {
+    when (index) {
+        0 -> x = value
+        1 -> y = value
+        else -> throw IndexOutOfBoundsException("Invalid coordinate $index")
+    }
+}
+fun s7_3() {
+    println("**** 7.3.1 *************")
+    val p = Point(10,20)
+    println(p[0])
+
+    val pm = MutablePoint(10,20)
+    pm[1] = 30
+    println(pm)
+}
