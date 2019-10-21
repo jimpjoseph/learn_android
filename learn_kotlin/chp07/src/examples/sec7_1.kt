@@ -101,6 +101,20 @@ operator fun Rectangle.contains(p: Point): Boolean {
             p.y in upperLeft.y until lowerRight.y
 }
 
+operator fun ClosedRange<LocalDate>.iterator(): Iterator<LocalDate> =
+    object : Iterator<LocalDate> {
+        var current = start
+
+        override fun hasNext(): Boolean {
+            return current <= endInclusive
+        }
+
+        override fun next(): LocalDate = current.apply {
+            current = plusDays(1)
+        }
+    }
+
+
 fun s7_3() {
     println("**** 7.3.1 *************")
     val p = Point(10,20)
@@ -120,4 +134,8 @@ fun s7_3() {
 
     val n = 9
     (0..(n+1)).forEach { print(it) }
+    println("")
+    val newYear = LocalDate.ofYearDay(2019,1)
+    val daysOff = newYear.minusDays(1)..newYear
+    for (dayOff in daysOff) { println(dayOff) }
 }
