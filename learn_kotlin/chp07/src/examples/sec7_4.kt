@@ -18,4 +18,20 @@ fun s7_4() {
     val (name, ext) = splitFileName("example.kt")
     println(name)
     println(ext)
+
+    s7_4_1()
+}
+
+fun printEntries(map: Map<String, String>) {
+    for ((k,v) in map) {
+        println("$k -> $v")
+    }
+}
+
+
+fun s7_4_1() {
+    println("***** 7.4.1 *****")
+    val map = mapOf("Oracle" to "Java", "Intelli" to "Kotlin", "Apple" to "Swift", "Google" to "go")
+    printEntries(map)
+
 }
