@@ -7,6 +7,7 @@ import kotlin.reflect.KProperty
 
 fun s7_5() {
     s7_5_3()
+    s7_5_5()
 }
 
 open class PropertyChangeAware {
@@ -135,4 +136,24 @@ fun s7_5_3() {
         })
     pC.age = 31
     pC.salary = 1900
+}
+
+class PersonE {
+    private val _attributes = hashMapOf<String, String>()
+
+    fun setAttribute(attrName: String, value: String) {
+        _attributes[attrName] = value
+    }
+
+    val name: String by _attributes
+}
+
+fun s7_5_5() {
+    println("*** 7.5.5 ***")
+    val p = PersonE()
+    val data = mapOf("name" to "Dmitry", "company" to "HERE")
+    for ((attrName,value) in data) {
+        p.setAttribute(attrName,value)
+    }
+    println(p.name)
 }
