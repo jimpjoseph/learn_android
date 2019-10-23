@@ -7,6 +7,7 @@ fun s8_1() {
     s8_1_1()
     s8_1_2()
     s8_1_4()
+    s8_1_5()
 }
 
 fun s8_1_1() {
@@ -88,4 +89,56 @@ fun s8_1_4() {
     println(letters.joinToString2())
     println(letters.joinToString2 { it -> it.toLowerCase() })
     println(letters.joinToString2 { it -> it.toUpperCase() })
+}
+
+enum class Delivery {STANDARD, EXPEDITED}
+
+class Order(val itemCount: Int)
+
+fun getShippingCostCalculator(
+    delivery: Delivery
+): (Order) -> Double {
+    if (delivery == Delivery.EXPEDITED) {
+        return { order -> 6 + 2.1 * order.itemCount}
+    }
+    return { order -> 1.2 * order.itemCount}
+}
+
+data class Person(
+    val firstName: String,
+    val lastName: String,
+    val phoneNumber: String?
+)
+
+class ContactListFilter {
+    var prefix: String = ""
+    var onlyWithPhoneNumber: Boolean = false
+
+    fun getPredicate(): (Person) -> Boolean {
+        val startsWithPrefix = { p: Person ->
+            p.firstName.startsWith(prefix) || p.lastName.startsWith(prefix)
+        }
+        if (!onlyWithPhoneNumber) {
+            return startsWithPrefix
+        }
+        return { startsWithPrefix(it) && it.phoneNumber != null}
+    }
+}
+
+fun s8_1_5() {
+    println("*** 8.1.5 ***")
+    val calculator = getShippingCostCalculator(Delivery.EXPEDITED)
+    println("Shipping cost Expedited  ${calculator(Order(3))}")
+    val calculator2 = getShippingCostCalculator(Delivery.STANDARD)
+    println("Shipping cost Standard ${calculator2(Order(3))}")
+
+    val contacts = listOf(Person("James", "Joseph", "123-4567"),
+        Person("Jennifer", "James", null))
+    val contactListFilter = ContactListFilter()
+    with(contactListFilter) {
+        prefix = "Ja"
+        onlyWithPhoneNumber = true
+    }
+    println(contacts.filter (contactListFilter.getPredicate()))
+
 }
