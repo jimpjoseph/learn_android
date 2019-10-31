@@ -166,12 +166,13 @@ val log = listOf(
     SiteVisit("/", 16.3, OS.ANDROID)
 )
 
-fun List<SiteVisit>.avaerageWindowsDuration (os: OS) = log.filter { it.os == os}
+fun List<SiteVisit>.avaerageWindowsDuration (predicate: (SiteVisit) -> Boolean) =
+    filter ( predicate)
     .map(SiteVisit::duration)
     .average()
 
 fun s8_1_6() {
-    println(log.avaerageWindowsDuration(OS.WINDOWS))
-    println(log.avaerageWindowsDuration(OS.MAC))
-
+    println(log.avaerageWindowsDuration{ it.os == OS.WINDOWS} )
+    println(log.avaerageWindowsDuration  { it.os in setOf(OS.ANDROID, OS.IOS)})
+    println(log.avaerageWindowsDuration{ it.os == OS.IOS && it.path == "/signup"} )
 }
