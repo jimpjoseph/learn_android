@@ -8,6 +8,7 @@ fun s8_1() {
     s8_1_2()
     s8_1_4()
     s8_1_5()
+    s8_1_6()
 }
 
 fun s8_1_1() {
@@ -141,4 +142,34 @@ fun s8_1_5() {
     }
     println(contacts.filter (contactListFilter.getPredicate()))
 
+}
+
+enum class OS {
+    WINDOWS,
+    LINUX,
+    MAC,
+    IOS,
+    ANDROID
+}
+
+data class SiteVisit (
+    val path: String,
+    val duration: Double,
+    val os: OS
+)
+
+val log = listOf(
+    SiteVisit("/", 34.0, OS.WINDOWS),
+    SiteVisit("/", 22.0, OS.MAC),
+    SiteVisit("/login", 12.0, OS.WINDOWS),
+    SiteVisit("/signup", 8.0, OS.IOS),
+    SiteVisit("/", 16.3, OS.ANDROID)
+)
+
+val avaerageWindowsDuration = log.filter { it.os == OS.WINDOWS }
+    .map(SiteVisit::duration)
+    .average()
+
+fun s8_1_6() {
+    println(avaerageWindowsDuration)
 }
