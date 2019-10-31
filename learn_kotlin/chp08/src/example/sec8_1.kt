@@ -166,10 +166,12 @@ val log = listOf(
     SiteVisit("/", 16.3, OS.ANDROID)
 )
 
-val avaerageWindowsDuration = log.filter { it.os == OS.WINDOWS }
+fun List<SiteVisit>.avaerageWindowsDuration (os: OS) = log.filter { it.os == os}
     .map(SiteVisit::duration)
     .average()
 
 fun s8_1_6() {
-    println(avaerageWindowsDuration)
+    println(log.avaerageWindowsDuration(OS.WINDOWS))
+    println(log.avaerageWindowsDuration(OS.MAC))
+
 }
