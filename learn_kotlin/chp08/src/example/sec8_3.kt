@@ -3,6 +3,7 @@ package example
 fun s8_3() {
     println("**** 8. 3 ***")
     s8_3_1()
+    s8_3_3()
 }
 
 fun lookForAlice(people: List<Person>) {
@@ -44,4 +45,27 @@ fun s8_3_1() {
     lookForAlice2(people2)
     lookForAlice3(people1)
     lookForAlice3(people2)
+
+    println(StringBuilder().apply sb@{
+        listOf(1,2,3).apply {
+            this@sb.append(this.toString())
+        }
+    })
+}
+
+fun lookForAlice4(people: List<Person>) {
+    people.forEach(fun (person) {
+      if (person.firstName == "Alice") {
+          return
+      }
+        println("${person.firstName} is not Alice")
+    })
+}
+
+fun s8_3_3() {
+    println("**** 8.3.3 *****")
+    val people1 = listOf(Person("Alice", "Allison",  null), Person("James", "Joseph", null))
+    val people2 = listOf(Person("Jennifer", "Jmames", null), Person("James", "Joseph", null))
+    lookForAlice4(people1)
+    lookForAlice4(people2)
 }
