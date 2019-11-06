@@ -4,6 +4,7 @@ fun s9_1() {
     println("      9.1       ")
     s9_1_1()
     s9_1_3()
+    s9_2_2()
 }
 
 
@@ -38,4 +39,12 @@ fun s9_1_3() {
     val helloWorld = StringBuilder("Hello, World")
     ensureTrailingPeriod(helloWorld)
     println(helloWorld)
+}
+
+inline fun <reified T> isA(value: T) = value is T
+fun s9_2_2() {
+    println(isA<String>("abc"))
+    //println(isA<String>(124))
+    val items = listOf("one", 2,"three")
+    println(items.filterIsInstance<String>())
 }
