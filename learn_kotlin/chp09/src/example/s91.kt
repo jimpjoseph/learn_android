@@ -5,6 +5,7 @@ fun s9_1() {
     s9_1_1()
     s9_1_3()
     s9_2_2()
+    s9_3_1()
 }
 
 
@@ -47,4 +48,15 @@ fun s9_2_2() {
     //println(isA<String>(124))
     val items = listOf("one", 2,"three")
     println(items.filterIsInstance<String>())
+}
+
+fun printContent(list: List<Any>) {
+    println(list.joinToString())
+}
+fun s9_3_1() {
+    printContent(listOf("abc", "efg"))
+    printContent(listOf(1,2,3))
+    printContent(listOf(1,"Two", 3.0))
+
+    
 }
